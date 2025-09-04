@@ -1,5 +1,6 @@
 package br.com.fiap.gitdash.github;
 
+import br.com.fiap.gitdash.user.User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.HttpHeaders;
@@ -67,4 +68,32 @@ public class GitHubService {
 
         return repoInfos;
     }
-}
+
+    public User getUserInfo(String tokenValue) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + tokenValue);
+
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        ResponseEntity<String> response = restTemplate.exchange(
+                "https://api.github.com/user",
+                HttpMethod.GET,
+                entity,
+                String.class);
+
+        User user = new User();
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = mapper.readTree(response.getBody());
+
+            user.setLogin(root.path("login").asText());
+            user.setName(root.path("name").asText());
+            user.setAvatarUrl(root.path("avatar_url").asText());
+            user.setHtmlUrl(root.path("html_url").asText());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return user;
+        }
+    }

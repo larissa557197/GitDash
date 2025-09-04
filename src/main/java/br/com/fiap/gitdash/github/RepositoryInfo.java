@@ -5,6 +5,7 @@ public class RepositoryInfo {
     private String description;
     private String lastCommitMessage;
     private int commitCount;
+    private String htmlUrl;
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
@@ -17,4 +18,7 @@ public class RepositoryInfo {
 
     public int getCommitCount() { return commitCount; }
     public void setCommitCount(int commitCount) { this.commitCount = commitCount; }
+
+    public String getHtmlUrl() { return htmlUrl; }
+    public void setHtmlUrl(String htmlUrl) { this.htmlUrl = htmlUrl; }
 }

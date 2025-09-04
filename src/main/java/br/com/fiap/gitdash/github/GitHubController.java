@@ -1,5 +1,6 @@
 package br.com.fiap.gitdash.github;
 
+import br.com.fiap.gitdash.user.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +22,12 @@ public class GitHubController {
     public String getUserInfo(Model model, @RegisteredOAuth2AuthorizedClient("github") OAuth2AuthorizedClient authorizedClient) {
 
         String tokenValue = authorizedClient.getAccessToken().getTokenValue();
+        User user = gitHubService.getUserInfo(tokenValue);
         List<RepositoryInfo> repos = gitHubService.getUserRepositories(tokenValue);
 
+        model.addAttribute("name", user.getName() != null ? user.getName() : user.getLogin());
+        model.addAttribute("avatar_url", user.getAvatarUrl());
+        model.addAttribute("html_url", user.getHtmlUrl());
         model.addAttribute("repos", repos);
 
         return "user";
