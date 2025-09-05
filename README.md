@@ -33,16 +33,17 @@
 
 ## Como Executar
 ### 1. Clone o repositório:
-    ```
-    git clone <URL_DO_REPOSITORIO>
-    ```
+ ```
+        git clone <URL_DO_REPOSITORIO>
+ 
+ ```
 ### 2. Configure as credenciais do GitHub:
     - No arquivo `src/main/resources/application.properties`, substitua os placeholders pelos seus Client ID e Client Secret do GitHu
-    ```
+```
     # Exemplo de configuração (substitua pelos seus valores)
         github.client.id=SEU_CLIENT_ID
         github.client.secret=SEU_CLIENT_SECRET
-    ```
+```
     - Você precisará registrar uma aplicação OAuth no GitHub: `GitHub Developer settings`.
       Certifique-se de configurar a Callback URL corretamente para o seu ambiente do desenvolvimento       (geralmente algo como `http://localhost:8080/login/oauth2/code/github`);
 ### 3. Compile e execute o projeto:
